@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puppy's Chefs</title>
+    <link rel="stylesheet" href="UwU.css">
+</head>
+<body>
+    <!-- Encabezado con el logo y nombre -->
+    <header>
+        <img src="logo.png" alt="Logo de Doggo Twitch" class="logo">
+        <h1>Puppy's Chefs Oficial</h1>
+        <button id="theme-toggle" class="theme-toggle">
+            <img src="sun.png" alt="Modo Claro" id="theme-icon">
+        </button>
+    </header>
+
+    <!-- Sección del video y chat -->
+    <div class="container">
+        <div class="video" style="width: 75%; display: inline-block;">
+            <video controls>
+                <source src="videos/puppy_stream.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-box" id="chat-box">
+                <!-- Los mensajes de chat se agregarán aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de la biografía -->
+    <div class="recommended">
+        <h2>Streams Recomendados</h2>
+        <div class="bio-container">
+            <div class="bio">
+                <img src="xokanino.jpg" alt="Xokanino" class="bio-image">
+                <h1>Usain Can</h1>
+                <p><strong>Fecha de nacimiento:</strong> 22 de diciembre de 1989</p>
+                <p>Usain Can, conocido por su carisma y habilidad para pasar circuitos caninos, ha traído su espíritu competitivo y su amor por los humanos a la escena de los deportes caninos. Su pasión por los deportes y su gran coeficiente intelectual ha demostrado lo que una simple bolsa de comida canina puede hacer.</p>
+            </div>
+            <div class="bio">
+                <img src="canbius.jpg" alt="Canbius" class="bio-image">
+                <h1>Alejandro Valcan</h1>
+                <p><strong>Fecha de nacimiento:</strong> 13 de febrero de 1990</p>
+                <p>Alejandro Valcan, con su estilo único y entretenido, ha capturado los corazones de miles de seguidores. Su dedicación a la diversión y lealtad a los humanos se reflejan en cada día de su vida, haciendo de Puppy’s Chefs un éxito.</p>
+            </div>
+            <div class="bio">
+                <img src="auroncan.jpg" alt="Auroncan" class="bio-image">
+                <h1>Cobe Can</h1>
+                <p><strong>Fecha de nacimiento:</strong> 5 de noviembre de 1988</p>
+                <p>Cobe Can combina su energía contagiosa con un profundo amor por los deportes.Su nueva vida, Está llena de emoción y alegría, ha hecho que Puppy’s Chefs sea una de las marcas más queridas entre los dueños de mascotas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Reseñas -->
+    <div class="reviews">
+        <h2>Deja tu reseña</h2>
+        <form id="review-form">
+            <label for="rating">Calificación (1 a 5):</label>
+            <select id="rating" name="rating" required>
+                <option value="" disabled selected>Selecciona una calificación</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="comment">Comentario:</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+
+            <button type="submit">Enviar Reseña</button>
+        </form>
+
+        <div id="reviews-container">
+            <!-- Las reseñas se agregarán aquí -->
+        </div>
+    </div>
+
+    <!-- Script para el chat y reseñas -->
+    <script>
+        // Mensajes de chat
+        const messages = [
+            '¡Puppy’s Chefs es increíble! Mi perro nunca ha estado tan feliz y saludable.',
+            'No puedo creer lo bien que le ha sentado a mi perro la comida de Puppy’s Chefs.',
+            'Puppy’s Chefs ha cambiado la vida de mi perro para mejor. ¡Lo recomiendo totalmente!',
+            'Desde que usamos Puppy’s Chefs, mi perro está más activo y saludable.',
+            '¡La mejor comida para perros es sin duda Puppy’s Chefs!',
+            'Mi perro adora Puppy’s Chefs. ¡Nunca ha estado tan enérgico!',
+            '¡Puppy’s Chefs es lo mejor que le ha pasado a mi perro!',
+            'Recomiendo Puppy’s Chefs a todos los dueños de perros. ¡Es fantástica!',
+            'Mi perro no puede tener suficiente de Puppy’s Chefs. ¡Es un éxito!',
+            '¡Gracias a Puppy’s Chefs, mi perro tiene un pelaje radiante y saludable!',
+            // Agrega más mensajes si lo deseas
+        ];
+
+        // Nombres de usuarios de chat
+        const users = [
+            'Streamer01', 'GamerDog', 'PuppyFan', 'CaninoLover', 'DogStreamer', 'PawChampion', 'BarkKing', 'FurryFriend', 'WoofMaster', 'PetLover',
+            'DoggoStar', 'PupHero', 'CanineBuddy', 'BarkLegend', 'FidoFanatic', 'TailWagger', 'PawPrince', 'WoofWizard', 'DoggoDiva', 'CanineQueen',
+            // Agrega más nombres si lo deseas
+        ];
+
+        // Función para enviar un mensaje de chat
+        function sendMessage() {
+            const chatBox = document.getElementById('chat-box');
+            const message = messages[Math.floor(Math.random() * messages.length)];
+            const user = users[Math.floor(Math.random() * users.length)];
+
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            messageElement.innerHTML = `<p><strong>${user}:</strong> ${message}</p>`;
+
+            chatBox.prepend(messageElement);
+
+            // Mantener el número máximo de mensajes en 5
+            const chatMessages = chatBox.querySelectorAll('.chat-message');
+            if (chatMessages.length > 5) {
+                chatMessages[5].remove();
+            }
+        }
+
+        // Enviar un mensaje de chat cada 5 segundos
+        setInterval(sendMessage, 5000);
+
+        // Función para cargar las reseñas almacenadas
+        function loadReviews() {
+            const reviewsContainer = document.getElementById('reviews-container');
+            const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            
+            reviewsContainer.innerHTML = '';
+            storedReviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'review-item';
+                reviewElement.innerHTML = `<p><strong>Calificación:</strong> ${review.rating}</p><p><strong>Comentario:</strong> ${review.comment}</p>`;
+                reviewsContainer.appendChild(reviewElement);
+            });
+        }
+
+        // Función para guardar una reseña
+        function saveReview(rating, comment) {
+            const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            
+            storedReviews.push({ rating, comment });
+            localStorage.setItem('reviews', JSON.stringify(storedReviews));
+            localStorage.setItem('hasReviewed', 'true'); // Marcar como revisado
+        }
+
+        // Manejar el envío del formulario de reseñas
+        document.getElementById('review-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (localStorage.getItem('hasReviewed') === 'true') {
+                alert('Solo puedes enviar una reseña por dispositivo.');
+                return;
+            }
+            
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+
+            saveReview(rating, comment);
+            loadReviews();
+
+            document.getElementById('review-form').reset();
+        });
+
+        // Cargar reseñas al cargar la página
+        window.onload = function() {
+            loadReviews();
+        };
+
+        // Función para alternar entre modos claro y oscuro
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.src = 'moon.png';
+                themeIcon.alt = 'Modo Oscuro';
+            } else {
+                themeIcon.src = 'sun.png';
+                themeIcon.alt = 'Modo Claro';
+            }
+        });
+    </script>
+</body>
+</html>
